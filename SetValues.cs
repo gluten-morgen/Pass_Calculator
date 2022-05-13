@@ -168,7 +168,7 @@ class Program_Main
         calc.Calculate();
         calc.DisplaySolution();
 
-        Console.WriteLine("\n\nPress any key to exit...");
+        Console.WriteLine("\n\nPress enter to exit...");
         Console.ReadLine();
     }
 }
