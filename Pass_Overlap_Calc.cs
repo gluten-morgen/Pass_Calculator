@@ -109,9 +109,17 @@ public partial class Pass_Overlap_Calc
         error_length = (float)Math.Round(error_length, 2);
 
         Console.Write("\n\n");
-        Console.Write("\n\t*************************************\t\n");
-        Console.WriteLine("{0} passes at {1}mm pitch, {2}% pitch error with {3}mm error in length.", pass, pitch_final, error_pitch * 100, error_length);
-        Console.WriteLine("\nConverged in {0} iterations.", iteration_cntr);
+        Console.Write("\n\t*************************************\t\n\n");
+
+        if (pitch_final > 0.0f)
+        {
+            Console.WriteLine("{0} passes at {1}mm pitch, {2}% pitch error with {3}mm error in length.", pass, pitch_final, error_pitch * 100, error_length);
+            Console.WriteLine("\nSolution converged in {0} iteration(s).", iteration_cntr);
+        }
+        else
+        {
+            Console.WriteLine("\nCalculation error: Solution failed to converge in {0} (max) iterations.", iteration_cntr);
+        }
         Console.Write("\n\t*************************************\t\n");
     }
 
