@@ -134,11 +134,11 @@ public partial class Pass_Overlap_Calc
 
                 Console.Write("Pitch tolerance % min: ");
                 ptmin = (float)Convert.ToDouble(Console.ReadLine());
-                ptmin = (float)Math.Round(ptmin, 2) / 100.0f;
+                ptmin = (float)Math.Round(ptmin, 2);
 
                 Console.Write("Pitch tolerance % max: ");
                 ptmax = (float)Convert.ToDouble(Console.ReadLine());
-                ptmax = (float)Math.Round(ptmax, 2) / 100.0f;
+                ptmax = (float)Math.Round(ptmax, 2);
 
                 Console.Write("Length tolerance [mm] min: ");
                 ltmin = (float)Convert.ToDouble(Console.ReadLine());
