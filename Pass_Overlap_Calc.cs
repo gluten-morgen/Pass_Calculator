@@ -36,14 +36,8 @@ public partial class Pass_Overlap_Calc
             if (Length_InTolerance(error_length)) return pitch_calc;
             else
             {
-                if (error_length >= 1)
-                {
-                    pass -= 1;
-                }
-                else if (error_length <= -1)
-                {
-                    pass += 1;
-                }
+                if (error_length >= length_tolerance_max) pass -= 1;
+                else if (error_length <= length_tolerance_min) pass += 1;
 
                 iteration_cntr += 1;
                 return CalculatePitch((L - pass_width) / pass);
