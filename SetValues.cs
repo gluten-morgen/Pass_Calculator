@@ -3,6 +3,7 @@ public partial class Pass_Overlap_Calc
 {
     private readonly float L, nom_pitch, pass_width;
     private readonly float pitch_tolerance_min, pitch_tolerance_max, length_tolerance_min, length_tolerance_max;
+    private readonly int max_iter;
 
     private static int iteration_cntr;
     private static float pass;
@@ -25,6 +26,8 @@ public partial class Pass_Overlap_Calc
         iteration_cntr = 0;
         pass = 0f;
         pitch_final = 0.0f;
+
+        max_iter = 7;
     }
 
     private void Display_initial()
@@ -134,10 +137,12 @@ public partial class Pass_Overlap_Calc
 
                 Console.Write("Pitch tolerance % min: ");
                 ptmin = (float)Convert.ToDouble(Console.ReadLine());
+                ptmin /= 100f;
                 ptmin = (float)Math.Round(ptmin, 2);
 
                 Console.Write("Pitch tolerance % max: ");
                 ptmax = (float)Convert.ToDouble(Console.ReadLine());
+                ptmax /= 100f;
                 ptmax = (float)Math.Round(ptmax, 2);
 
                 Console.Write("Length tolerance [mm] min: ");
