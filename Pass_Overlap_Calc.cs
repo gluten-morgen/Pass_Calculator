@@ -53,6 +53,10 @@ public partial class Pass_Overlap_Calc
             pitch_calc = pitch_calc * (1 + error_pitch);
             pitch_calc = (float)Math.Round(pitch_calc, 2);
 
+
+            error_pitch = (pitch_calc - nom_pitch) / nom_pitch;
+            error_pitch = (float)Math.Round(error_pitch, 2);
+
             error_length = ((pitch_calc * (pass+1)) + pass_width) - L;
             error_length = (float)Math.Round(error_length, 2);
 

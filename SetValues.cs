@@ -187,12 +187,18 @@ public partial class Pass_Overlap_Calc
 class Program_Main
 {
     public static void Main()
-    {
-        Pass_Overlap_Calc calc = new();
-        calc.Calculate();
-        calc.DisplaySolution();
+    {        
+        while (true)
+        {
+            Pass_Overlap_Calc calc = new();
+            calc.Calculate();
+            calc.DisplaySolution();
 
-        Console.WriteLine("\n\nPress enter to exit...");
-        Console.ReadLine();
+            Console.Write("\n\nContinue? y/n : ");
+            string s = Console.ReadLine();
+
+            if (s.ToLower().Equals("n")) break;
+            GC.Collect();
+        }
     }
 }
