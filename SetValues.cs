@@ -30,8 +30,40 @@ public partial class Pass_Overlap_Calc
         max_iter = 7;
     }
 
-    private void Display_initial()
+    private void MenuInput()
     {
+        Console.Write("\n\n");
+        Console.WriteLine("Menu:\n" +
+            "-----------");
+        Console.WriteLine("1 - Input length [mm]\n" +
+            "2 - Input length [mm] and nominal pitch [mm]\n" +
+            "3 - Input all values\n");
+        Console.Write("Choice: ");
+        choice = Convert.ToInt16(Console.ReadLine());
+        Console.Write("\n");
+    }
+
+    private void Display_defaults(int cell_num)
+    {
+        if (cell_num == 1 || cell_num == 2)
+        {
+            Console.Write("Default vaules for Cell 1: \n" +
+                "-------------------------\n" +
+                "nominal pitch = {0}mm\n" +
+                "pass width = {1}mm\n" +
+                "minimum pitch tolerance = {2}%\n" +
+                "maximum pitch tolerance = {3}%\n" +
+                "minimum length tolerance = {4}mm\n" +
+                "maximum length tolerance = {5}mm\n", nm_p, pw, Math.Round(ptmin * 100), Math.Round(ptmax * 100), ltmin, ltmax);
+        }
+        else
+            Console.WriteLine("Choice error: Cell has not been implemented yet.");
+    }
+
+    private void ParameterInput()
+    {
+        string? temp = "";
+
         Console.Write("\n*******************************************\n");
         Console.Write("This tool calculates the number of passes required for a given length.");
         Console.Write("\n*******************************************\n");
@@ -44,54 +76,13 @@ public partial class Pass_Overlap_Calc
 
         if (cell_num == 1)
         {
-            Console.Write("Default vaules for Cell 1: \n" +
-                "-------------------------\n" +
-                "nominal pitch = {0}mm\n" +
-                "pass width = {1}mm\n" +
-                "minimum pitch tolerance = {2}%\n" +
-                "maximum pitch tolerance = {3}%\n" +
-                "minimum length tolerance = {4}mm\n" +
-                "maximum length tolerance = {5}mm\n", 9.525, 12.75, Math.Round(-0.07 * 100), Math.Round(0.04 * 100), -0.5, 0.5);
-        }
-        else if (cell_num == 2)
-        {
-            Console.Write("Default vaules for Cell 2: \n" +
-                "------------------------\n" +
-                "nominal pitch = {0}mm\n" +
-                "pass width = {1}mm\n" +
-                "minimum pitch tolerance = {2}%\n" +
-                "maximum pitch tolerance = {3}\n" +
-                "minimum length tolerance = {4}mm\n" +
-                "maximum length tolerance = {5}mm\n", 3.2, 6.5, Math.Round(-0.1 * 100), Math.Round(0.1 * 100), -0.5, 0.5);
-        }
-        else
-            Console.WriteLine("Choice error: Cell has not been implemented yet.");
-
-        Console.Write("\n\n");
-        Console.WriteLine("Menu:\n" +
-            "-----------");
-        Console.WriteLine("1 - Input length [mm]\n" +
-            "2 - Input length [mm] and nominal pitch [mm]\n" +
-            "3 - Input all values\n");
-        Console.Write("Choice: ");
-        choice = Convert.ToInt16(Console.ReadLine());
-        Console.Write("\n");
-    }
-
-    private void ParameterInput()
-    {
-        Display_initial();
-
-        if (cell_num == 1)
-        {
             nm_p = 9.525f;
-            pw = 12.75f;
+            pw = 12f;
             ptmin = -.07f;
             ptmax = .04f;
             ltmin = -.5f;
             ltmax = .5f;
         }
-
         else if (cell_num == 2)
         {
             nm_p = 3.2f;
@@ -101,8 +92,12 @@ public partial class Pass_Overlap_Calc
             ltmin = -.5f;
             ltmax = .5f;
         }
-
         else Console.WriteLine("Error: Cell not implemented yet.");
+
+
+        Display_defaults(cell_num);
+        MenuInput();
+
 
         switch (choice)
         {
@@ -128,30 +123,54 @@ public partial class Pass_Overlap_Calc
                 len = (float)Math.Round(len, 2);
 
                 Console.Write("Pitch [mm]: ");
-                nm_p = (float)Convert.ToDouble(Console.ReadLine());
-                nm_p = (float)Math.Round(nm_p, 2);
+                temp = Console.ReadLine();
+                if (temp.Equals(string.Empty) == false)
+                {
+                    nm_p = (float)Convert.ToDouble(temp);
+                    nm_p = (float)Math.Round(nm_p, 2);
+                }
 
                 Console.Write("Pass width [mm]: ");
-                pw = (float)Convert.ToDouble(Console.ReadLine());
-                pw = (float)Math.Round(pw, 2);
-
+                temp = Console.ReadLine();
+                if (temp.Equals(string.Empty) == false)
+                {
+                    pw = (float)Convert.ToDouble(temp);
+                    pw = (float)Math.Round(pw, 2);
+                }
+ 
                 Console.Write("Pitch tolerance % min: ");
-                ptmin = (float)Convert.ToDouble(Console.ReadLine());
-                ptmin /= 100f;
-                ptmin = (float)Math.Round(ptmin, 2);
+                temp = Console.ReadLine();
+                if (temp.Equals(string.Empty) == false)
+                {
+                    ptmin = (float)Convert.ToDouble(temp);
+                    ptmin /= 100f;
+                    ptmin = (float)Math.Round(ptmin, 2);
+                }
 
-                Console.Write("Pitch tolerance % max: ");
-                ptmax = (float)Convert.ToDouble(Console.ReadLine());
-                ptmax /= 100f;
-                ptmax = (float)Math.Round(ptmax, 2);
+                Console.Write("Pitch tolerance % max: "); 
+                temp = Console.ReadLine();
+                if (temp.Equals(string.Empty) == false)
+                {
+                    ptmax = (float)Convert.ToDouble(temp);
+                    ptmax /= 100f;
+                    ptmax = (float)Math.Round(ptmax, 2);
+                }
 
                 Console.Write("Length tolerance [mm] min: ");
-                ltmin = (float)Convert.ToDouble(Console.ReadLine());
-                ltmin = (float)Math.Round(ltmin, 2);
+                temp = Console.ReadLine();
+                if (temp.Equals(string.Empty) == false)
+                {
+                    ltmin = (float)Convert.ToDouble(temp);
+                    ltmin = (float)Math.Round(ltmin, 2);
+                }
 
                 Console.Write("Length tolerance [mm] max: ");
-                ltmax = (float)Convert.ToDouble(Console.ReadLine());
-                ltmax = (float)Math.Round(ltmax, 2);
+                temp = Console.ReadLine();
+                if (temp.Equals(string.Empty) == false)
+                {
+                    ltmax = (float)Convert.ToDouble(temp);
+                    ltmax = (float)Math.Round(ltmax, 2);
+                }
 
                 break;
 
