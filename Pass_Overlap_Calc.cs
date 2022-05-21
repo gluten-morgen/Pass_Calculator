@@ -9,18 +9,18 @@ public partial class Pass_Overlap_Calc
         float L_calc = L - pass_width;
 
         pass = L_calc / nom_pitch;
-        pass += 1;
+        pass = (float)Math.Round(pass, 0) - 1;
 
         pass = (float)Math.Round(pass);
-        pitch_temp = L_calc / pass;
+        pitch_temp = L_calc / (pass+1);
 
         iteration_cntr = 1;
         pitch_final = CalculatePitch(pitch_temp);
-        pitch_final = (float)Math.Round(pitch_final, 2);
+        pitch_final = (float)Math.Round(pitch_final, 3);
     }
 
     private float CalculatePitch(float pitch_calc)
-    {
+    { 
         float error_pitch, error_length;
 
         error_pitch = (pitch_calc - nom_pitch) / nom_pitch;
@@ -29,15 +29,15 @@ public partial class Pass_Overlap_Calc
 
         if (Pitch_InTolerance(error_pitch))
         {
-            error_length = ((pitch_calc * pass) + pass_width) - L;
+            error_length = ((pitch_calc * (pass+1)) + pass_width) - L;
             error_length = (float)Math.Round(error_length, 2);
 
 
             if (Length_InTolerance(error_length)) return pitch_calc;
             else
             {
-                if (error_length >= length_tolerance_max) pass -= 1;
-                else if (error_length <= length_tolerance_min) pass += 1;
+                if (error_length >= length_tolerance_max && pass > 0) pass -= 1;
+                else if (error_length <= -length_tolerance_min) pass += 1;
 
                 iteration_cntr += 1;
                 return CalculatePitch((L - pass_width) / pass);
@@ -53,7 +53,11 @@ public partial class Pass_Overlap_Calc
             pitch_calc = pitch_calc * (1 + error_pitch);
             pitch_calc = (float)Math.Round(pitch_calc, 2);
 
-            error_length = ((pitch_calc * pass) + pass_width) - L;
+
+            error_pitch = (pitch_calc - nom_pitch) / nom_pitch;
+            error_pitch = (float)Math.Round(error_pitch, 2);
+
+            error_length = ((pitch_calc * (pass+1)) + pass_width) - L;
             error_length = (float)Math.Round(error_length, 2);
 
 
@@ -61,7 +65,7 @@ public partial class Pass_Overlap_Calc
             if (iteration_cntr >= max_iter) return 0.0f;
 
 
-            if (error_length >= length_tolerance_max) pass -= 1;  
+            if (error_length >= length_tolerance_max && pass > 0) pass -= 1;  
             else if (error_length <= length_tolerance_min) pass += 1;
        
 
@@ -91,9 +95,9 @@ public partial class Pass_Overlap_Calc
         float error_pitch, error_length;
 
         error_pitch = (pitch_final - nom_pitch) / nom_pitch;
-        error_pitch = (float)Math.Round(error_pitch, 2);
+        error_pitch = (float)Math.Round(error_pitch, 3);
 
-        error_length = Math.Abs(((pitch_final * pass) + pass_width) - L);
+        error_length = Math.Abs(((pitch_final * (pass+1)) + pass_width) - L);
         error_length = (float)Math.Round(error_length, 2);
 
         Console.Write("\n\n");
