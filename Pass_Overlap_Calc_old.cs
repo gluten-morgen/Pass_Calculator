@@ -25,50 +25,69 @@ public partial class Pass_Overlap_Calc
          * not in tolerance, the function recursively optimises upto a specified limit till the 
          * solution converges.*/
 
-        float error_pitch, error_length, error_diff = 0.0f ;
+        float error_pitch, error_length;
 
-        // Calculate initial pitch and length error
         error_pitch = Get_PitchError(pitch_calc);
-        error_length = Get_LengthError(pitch_calc);
 
-        // If pitch and length are within tolerance, return value.
-        if (Pitch_InTolerance(error_pitch) && Length_InTolerance(error_length)) return pitch_calc;
+        // Check if the pitch error is within tolerance, if it is, check if length error is within tolerance.
+        if (Pitch_InTolerance(error_pitch))
+        {
+            error_length = Get_LengthError(pitch_calc);
 
-
-
-        // Get the error difference in pitch with respect to the tolerance range.
-        if (error_pitch <= pitch_tolerance_min) error_diff = pitch_tolerance_min - error_pitch;
-
-        else if (error_pitch >= pitch_tolerance_max) error_diff = error_pitch - pitch_tolerance_max;
-
-
-
-        // Recalculate the pitch using the error difference.
-        pitch_calc = pitch_calc * (1 + error_diff);
-        pitch_calc = (float)Math.Round(pitch_calc, 2);
+            if (Length_InTolerance(error_length)) return pitch_calc;
+            else
+            {
+                // If length is out of tolerance, change the number of passes.
+                if (error_length >= length_tolerance_max && pass > 0) pass -= 1;
+                else if (error_length <= -length_tolerance_min) pass += 1;
 
 
-        // Calculate pitch and length error
-        error_pitch = Get_PitchError(pitch_calc);
-        error_length = Get_LengthError(pitch_calc);
+                // Recurse with a recalculated pitch.
+                iteration_cntr += 1;
+                return CalculatePitch( Get_Pitch() );
+            }
+        }
+
+        // Correct the pitch by adding the +/- error difference, recalculate errors and passes and recursively optimise if necessary. 
+        else
+        {
+            float error_diff = 0.0f;
+
+            // Get the error difference in pitch with respect to the tolerance range.
+            if (error_pitch <= pitch_tolerance_min)
+                error_diff = pitch_tolerance_min - error_pitch;
+
+            else if (error_pitch >= pitch_tolerance_max)
+                error_diff = error_pitch - pitch_tolerance_max;
 
 
-        // If pitch and length are within tolerance, return the calculated value.
-        if (Pitch_InTolerance(error_pitch) && Length_InTolerance(error_length)) return pitch_calc;
+            // Recalculate the pitch using the error difference.
+            pitch_calc = pitch_calc * (1 + error_diff);
+            pitch_calc = (float)Math.Round(pitch_calc, 2);
 
 
-        // If length is out of tolerance, change the number of passes.
-        if (error_length >= length_tolerance_max && pass > 0) pass -= 1;
-        else if (error_length <= length_tolerance_min) pass += 1;
+            // Calculate pitch and length error
+            error_pitch = Get_PitchError(pitch_calc);
+            error_length = Get_LengthError(pitch_calc);
 
 
-        // Escape with 0.0 if no. of iterations are at limit. Prevents stack overflow. 
-        if (iteration_cntr >= max_iter) return 0.0f;
+            // If pitch and length are within tolerance, return the calculated value.
+            if (Pitch_InTolerance(error_pitch) && Length_InTolerance(error_length)) return pitch_calc;
+            
+
+            // If length is out of tolerance, change the number of passes.
+            if (error_length >= length_tolerance_max && pass > 0) pass -= 1;  
+            else if (error_length <= length_tolerance_min) pass += 1;
 
 
-        // Recurse with a recalculated pitch.
-        iteration_cntr += 1;
-        return CalculatePitch(Get_Pitch());
+            // Escape with 0.0 if no. of iterations are at limit. Prevents stack overflow. 
+            if (iteration_cntr >= max_iter) return 0.0f;
+
+
+            // Recurse with a recalculated pitch.
+            iteration_cntr += 1;
+            return CalculatePitch( Get_Pitch() );
+        }
     }
 
 

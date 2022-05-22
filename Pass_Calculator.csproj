@@ -7,4 +7,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Pass_Overlap_Calc_old.cs" />
+  </ItemGroup>
+
 </Project>

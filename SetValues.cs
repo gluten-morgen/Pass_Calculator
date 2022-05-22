@@ -1,7 +1,7 @@
 ﻿
 public partial class Pass_Overlap_Calc
 {
-    private readonly float L, nom_pitch, pass_width;
+    private readonly float length, nom_pitch, pass_width;
     private readonly float pitch_tolerance_min, pitch_tolerance_max, length_tolerance_min, length_tolerance_max;
     private readonly int max_iter;
 
@@ -13,9 +13,10 @@ public partial class Pass_Overlap_Calc
     private int cell_num, choice;
     public Pass_Overlap_Calc()
     {
+        // Get inputs when a new instance is created.
         ParameterInput();
 
-        L = len;
+        length = len;
         nom_pitch = nm_p;
         pass_width = pw;
         pitch_tolerance_min = ptmin;
@@ -27,6 +28,7 @@ public partial class Pass_Overlap_Calc
         pass = 0f;
         pitch_final = 0.0f;
 
+        // Hardcoded constant value for maximum no. of iterations.
         max_iter = 7;
     }
 
@@ -74,6 +76,8 @@ public partial class Pass_Overlap_Calc
 
         Console.Write("\n\n");
 
+
+        // Default values for cells.
         if (cell_num == 1)
         {
             nm_p = 9.525f;
@@ -102,13 +106,13 @@ public partial class Pass_Overlap_Calc
         switch (choice)
         {
             case 1:
-                Console.Write("Length :");
+                Console.Write("Length: ");
                 len = (float)Convert.ToDouble(Console.ReadLine());
                 len = (float)Math.Round(len, 2);
                 break;
 
             case 2:
-                Console.Write("Length :");
+                Console.Write("Length: ");
                 len = (float)Convert.ToDouble(Console.ReadLine());
                 len = (float)Math.Round(len, 2);
 
@@ -118,7 +122,7 @@ public partial class Pass_Overlap_Calc
                 break;
 
             case 3:
-                Console.Write("Length [mm]:");
+                Console.Write("Length [mm]: ");
                 len = (float)Convert.ToDouble(Console.ReadLine());
                 len = (float)Math.Round(len, 2);
 
@@ -138,7 +142,7 @@ public partial class Pass_Overlap_Calc
                     pw = (float)Math.Round(pw, 2);
                 }
  
-                Console.Write("Pitch tolerance % min: ");
+                Console.Write("Pitch tolerance [%] min: ");
                 temp = Console.ReadLine();
                 if (temp.Equals(string.Empty) == false)
                 {
@@ -147,7 +151,7 @@ public partial class Pass_Overlap_Calc
                     ptmin = (float)Math.Round(ptmin, 2);
                 }
 
-                Console.Write("Pitch tolerance % max: "); 
+                Console.Write("Pitch tolerance [%] max: "); 
                 temp = Console.ReadLine();
                 if (temp.Equals(string.Empty) == false)
                 {
@@ -195,7 +199,7 @@ class Program_Main
             calc.DisplaySolution();
 
             Console.Write("\n\nContinue? y/n : ");
-            string s = Console.ReadLine();
+            string? s = Console.ReadLine();
 
             if (s.ToLower().Equals("n")) break;
             GC.Collect();
