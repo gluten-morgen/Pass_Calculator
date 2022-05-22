@@ -1,7 +1,12 @@
 ﻿
-
+/// <summary>
+/// Calculate optimal number of passses and pitch for a given length.
+/// </summary>
 public partial class Pass_Overlap_Calc
 {
+    /// <summary>
+    /// Calculates the initial number of passes and pitch.
+    /// </summary>
     private void CalculatePasses()
     {
         /*Calculates the initial number of passes and pitch using length, nominal pitch and pass width.*/
@@ -19,6 +24,12 @@ public partial class Pass_Overlap_Calc
         pitch_final = (float)Math.Round(pitch_final, 3);
     }
 
+
+    /// <summary>
+    /// Calculates the pitch within specified tolerances.
+    /// </summary>
+    /// <param name="pitch_calc"></param>
+    /// <returns>float</returns>
     private float CalculatePitch(float pitch_calc)
     { 
         /*Calculates the pitch that falls within the tolerance. If the initial calculation is 
@@ -31,7 +42,6 @@ public partial class Pass_Overlap_Calc
         error_pitch = Get_PitchError(pitch_calc);
         error_length = Get_LengthError(pitch_calc);
 
-        // If pitch and length are within tolerance, return value.
         if (Pitch_InTolerance(error_pitch) && Length_InTolerance(error_length)) return pitch_calc;
 
 
@@ -43,17 +53,16 @@ public partial class Pass_Overlap_Calc
 
 
 
-        // Recalculate the pitch using the error difference.
+        // Recalculate the pitch after correcting error.
         pitch_calc = pitch_calc * (1 + error_diff);
-        pitch_calc = (float)Math.Round(pitch_calc, 2);
+        pitch_calc = (float)Math.Round(pitch_calc, 3);
 
 
         // Calculate pitch and length error
         error_pitch = Get_PitchError(pitch_calc);
         error_length = Get_LengthError(pitch_calc);
+         
 
-
-        // If pitch and length are within tolerance, return the calculated value.
         if (Pitch_InTolerance(error_pitch) && Length_InTolerance(error_length)) return pitch_calc;
 
 
@@ -72,57 +81,71 @@ public partial class Pass_Overlap_Calc
     }
 
 
-
+    /// <summary>
+    /// Returns the normalised pitch error from input arg.
+    /// </summary>
+    /// <param name="pitch_calc"></param>
+    /// <returns>float</returns>
     private float Get_PitchError(float pitch_calc)
     {
-        /*Returns the normalised pitch error from (pitch_calc) input.*/
-
         float error_pitch = (pitch_calc - nom_pitch) / nom_pitch;
-        return (float)Math.Round(error_pitch, 2);
+        return (float)Math.Round(error_pitch, 3);
     }
 
+
+    /// <summary>
+    /// Returns the length error using length calculated from input arg.
+    /// </summary>
+    /// <param name="pitch_calc"></param>
+    /// <returns>float</returns>
     private float Get_LengthError(float pitch_calc)
     {
-        /*Returns the length error using length calculated from (pitch_calc) pitch input.*/
-
         float error_length = ((pitch_calc * (pass - 1)) + pass_width) - length;
-        return (float)Math.Round(error_length, 2);
+        return (float)Math.Round(error_length, 3);
     }
 
+
+    /// <summary>
+    /// Returns the calculated pitch using length, pass width, and passes.
+    /// </summary>
+    /// <returns>float</returns>
     private float Get_Pitch()
     {
-        /*Returns the calculated pitch using length, pass width, and passes.*/
-
         return (length - pass_width) / (pass - 1);
     }
 
 
 
-
+    /// <summary>
+    /// Returns TRUE if the normalised pitch error (delta) is within specified tolerance. FALSE if otherwise.
+    /// </summary>
+    /// <param name="delta"></param>
+    /// <returns>bool</returns>
     private bool Pitch_InTolerance(float delta)
     {
-        /*Returns TRUE if the normalised pitch error (delta) is within specified tolerance. FALSE if otherwise.*/
-
-        delta = (float)Math.Round(delta, 2);
+        delta = (float)Math.Round(delta, 3);
         return (delta >= pitch_tolerance_min) && (delta <= pitch_tolerance_max);
     }
 
+    /// <summary>
+    /// Returns TRUE if the length error (delta) is within specified tolerance. FALSE if otherwise
+    /// </summary>
+    /// <param name="delta"></param>
+    /// <returns></returns>
     private bool Length_InTolerance(float delta)
     {
-        /*Returns TRUE if the length error (delta) is within specified tolerance. FALSE if otherwise.*/
-
-        delta = (float)Math.Round(delta, 2);
+        delta = (float)Math.Round(delta, 3);
         return (delta >= length_tolerance_min) && (delta <= length_tolerance_max);
     }
 
 
 
 
-
+    /// <summary>
+    /// Displays the number of passes, pitch, error, and the number of iterations.
+    /// </summary>
     public void DisplaySolution()
     {
-        /*Displays the number of passes, pitch, and errors.*/
-
         float error_pitch, error_length;
 
         error_pitch = (pitch_final - nom_pitch) / nom_pitch;
@@ -146,6 +169,10 @@ public partial class Pass_Overlap_Calc
         Console.Write("\n\t*************************************\t\n");
     }
 
+
+    /// <summary>
+    /// Calculates the optimum number of passes and pitch given specified tolerances.
+    /// </summary>
     public void Calculate()
     {
         /*Creates an abstraction that encapsulates all the calculations within a public method.*/
