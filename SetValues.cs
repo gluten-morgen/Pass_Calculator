@@ -265,7 +265,10 @@ class Program_Main
                 Console.WriteLine("\n*** Error ***\n");
                 Console.WriteLine("\n\nException encountered. Try again.\n\n\n");
             }
-            GC.Collect();
+            finally
+            {
+                GC.Collect();
+            }
         }
     }
 }
