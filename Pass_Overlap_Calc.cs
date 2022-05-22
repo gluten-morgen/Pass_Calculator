@@ -4,7 +4,7 @@ public partial class Pass_Overlap_Calc
 {
     private void CalculatePasses()
     {
-        /*Calculates the initial number of passes and pitch.*/
+        /*Calculates the initial number of passes and pitch using length, nominal pitch and pass width.*/
 
         float pitch_temp;
 
