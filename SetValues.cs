@@ -1,34 +1,73 @@
 ﻿
 public partial class Pass_Overlap_Calc
 {
-    private readonly float L, nom_pitch, pass_width;
+    private readonly float length, nom_pitch, pass_width;
     private readonly float pitch_tolerance_min, pitch_tolerance_max, length_tolerance_min, length_tolerance_max;
     private readonly int max_iter;
 
     private static int iteration_cntr;
-    private static float pass;
-    private float pitch_final;
 
-    private float len, nm_p, pw, ptmin, ptmax, ltmin, ltmax;
-    private int cell_num, choice;
-    public Pass_Overlap_Calc()
+    /// <summary>
+    /// Number of passes.
+    /// </summary>
+    public static float pass;
+
+    /// <summary>
+    /// The optimsed pitch between passes.
+    /// </summary>
+    public float pitch_final;
+
+    /// <summary>
+    /// Instantiate a <c>Pass_Overlap_Calc</c> object.
+    /// </summary>
+    /// <param name="length_"></param>
+    /// <param name="nom_pitch_"></param>
+    /// <param name="pass_width_"></param>
+    /// <param name="pitch_tolerance_min_"></param>
+    /// <param name="pitch_tolerance_max_"></param>
+    /// <param name="length_tolerance_min_"></param>
+    /// <param name="length_tolerance_max_"></param>
+    public Pass_Overlap_Calc(float length_, float nom_pitch_, float pass_width_, float pitch_tolerance_min_, float pitch_tolerance_max_, float length_tolerance_min_, float length_tolerance_max_)
     {
-        ParameterInput();
-
-        L = len;
-        nom_pitch = nm_p;
-        pass_width = pw;
-        pitch_tolerance_min = ptmin;
-        pitch_tolerance_max = ptmax;
-        length_tolerance_min = ltmin;
-        length_tolerance_max = ltmax;
+        length = length_;
+        nom_pitch = nom_pitch_; // nominal pitch
+        pass_width = pass_width_;
+        pitch_tolerance_min = pitch_tolerance_min_;
+        pitch_tolerance_max = pitch_tolerance_max_;
+        length_tolerance_min = length_tolerance_min_;
+        length_tolerance_max = length_tolerance_max_;
 
         iteration_cntr = 0;
         pass = 0f;
         pitch_final = 0.0f;
 
-        max_iter = 7;
+        // Hardcoded constant value for maximum no. of iterations.
+        max_iter = 10;
     }
+}
+
+
+/// <summary>
+/// Generate a menu style input on the console.
+/// </summary>
+public class Inputs
+{
+    /// <summary>
+    /// Create a new <c>Inputs</c> object.
+    /// </summary>
+    public Inputs() { }
+
+    /// <summary>
+    /// len = Length [mm],
+    /// nm_p = Nominal Pitch [mm],
+    /// pw = Pass Width [mm],
+    /// ptmin = Minimum Pitch Tolerance [-1 to 1],
+    /// ptmax = Maximum Pitch Tolerance [-1 to 1],
+    /// ltmin = Minimum Length Tolerance [mm],
+    /// ltmax = Maximum Length Tolerance [mm],
+    /// </summary>
+    public float len, nm_p, pw, ptmin, ptmax, ltmin, ltmax;
+    private int cell_num, choice;
 
     private void MenuInput()
     {
@@ -42,7 +81,6 @@ public partial class Pass_Overlap_Calc
         choice = Convert.ToInt16(Console.ReadLine());
         Console.Write("\n");
     }
-
     private void Display_defaults(int cell_num)
     {
         if (cell_num == 1 || cell_num == 2)
@@ -60,55 +98,41 @@ public partial class Pass_Overlap_Calc
             Console.WriteLine("Choice error: Cell has not been implemented yet.");
     }
 
+
     private void ParameterInput()
     {
-        string? temp = "";
+        string? temp;
 
-        Console.Write("\n*******************************************\n");
+        Console.Write("\n\n");
+        Console.Write("\t\t\t****   P A S S    C A L C U L A T O R   ****\n\n");
         Console.Write("This tool calculates the number of passes required for a given length.");
-        Console.Write("\n*******************************************\n");
+        Console.Write("\n\n**********************************************************************\n");
         Console.Write("\n");
 
-        Console.Write("Enter Cell Number (1 or 2): ");
+        Console.Write("Enter Cell Number (1 / 2 / 3): ");
         cell_num = Convert.ToInt16(Console.ReadLine());
 
         Console.Write("\n\n");
+        
 
-        if (cell_num == 1)
-        {
-            nm_p = 9.525f;
-            pw = 12f;
-            ptmin = -.07f;
-            ptmax = .04f;
-            ltmin = -.5f;
-            ltmax = .5f;
-        }
-        else if (cell_num == 2)
-        {
-            nm_p = 3.2f;
-            pw = 6.5f;
-            ptmin = -.1f;
-            ptmax = .1f;
-            ltmin = -.5f;
-            ltmax = .5f;
-        }
-        else Console.WriteLine("Error: Cell not implemented yet.");
-
-
+        SetDefaults(cell_num);
         Display_defaults(cell_num);
+
         MenuInput();
 
 
         switch (choice)
         {
             case 1:
-                Console.Write("Length :");
+                Console.Write("Length: ");
                 len = (float)Convert.ToDouble(Console.ReadLine());
                 len = (float)Math.Round(len, 2);
                 break;
 
             case 2:
-                Console.Write("Length :");
+                Console.WriteLine("Input length and leave blank to use defaults.\n");
+
+                Console.Write("Length: ");
                 len = (float)Convert.ToDouble(Console.ReadLine());
                 len = (float)Math.Round(len, 2);
 
@@ -118,7 +142,9 @@ public partial class Pass_Overlap_Calc
                 break;
 
             case 3:
-                Console.Write("Length [mm]:");
+                Console.WriteLine("Input length and leave blank to use defaults.\n");
+
+                Console.Write("Length [mm]: ");
                 len = (float)Convert.ToDouble(Console.ReadLine());
                 len = (float)Math.Round(len, 2);
 
@@ -137,8 +163,8 @@ public partial class Pass_Overlap_Calc
                     pw = (float)Convert.ToDouble(temp);
                     pw = (float)Math.Round(pw, 2);
                 }
- 
-                Console.Write("Pitch tolerance % min: ");
+
+                Console.Write("Pitch tolerance [%] min: ");
                 temp = Console.ReadLine();
                 if (temp.Equals(string.Empty) == false)
                 {
@@ -147,7 +173,7 @@ public partial class Pass_Overlap_Calc
                     ptmin = (float)Math.Round(ptmin, 2);
                 }
 
-                Console.Write("Pitch tolerance % max: "); 
+                Console.Write("Pitch tolerance [%] max: ");
                 temp = Console.ReadLine();
                 if (temp.Equals(string.Empty) == false)
                 {
@@ -177,8 +203,46 @@ public partial class Pass_Overlap_Calc
             default:
                 Console.WriteLine("Switch case error: invalid option.");
                 break;
-        }       
-            
+        }
+
+    }
+
+    private void SetDefaults(int cell_num)
+    {
+        // Default values for cells.
+        if (cell_num == 1)
+        {
+            nm_p = 9.525f;
+            pw = 12f;
+            ptmin = -.07f;
+            ptmax = .04f;
+            ltmin = -.5f;
+            ltmax = .5f;
+        }
+        else if (cell_num == 2)
+        {
+            nm_p = 3.2f;
+            pw = 6.5f;
+            ptmin = -.1f;
+            ptmax = .1f;
+            ltmin = -.5f;
+            ltmax = .5f;
+        }
+        else if (cell_num == 3)
+        {
+            Console.WriteLine("Error: Cell not implemented yet.");
+            throw new Exception("Cell not implemented");
+        }
+        else throw new Exception("Invalid Input");
+    }
+
+
+    /// <summary>
+    /// Gets the required inputs from the user in a menu style format.
+    /// </summary>
+    public void GetInput()
+    {
+        ParameterInput();
     }
 }
 
@@ -187,18 +251,33 @@ public partial class Pass_Overlap_Calc
 class Program_Main
 {
     public static void Main()
-    {        
+    {
+        Inputs inputs = new();
+
         while (true)
         {
-            Pass_Overlap_Calc calc = new();
-            calc.Calculate();
-            calc.DisplaySolution();
+            try
+            {
+                inputs.GetInput();
 
-            Console.Write("\n\nContinue? y/n : ");
-            string s = Console.ReadLine();
+                Pass_Overlap_Calc calc = new(inputs.len, inputs.nm_p, inputs.pw, inputs.ptmin, inputs.ptmax, inputs.ltmin, inputs.ltmax);
+                calc.Calculate();
+                calc.DisplaySolution();
 
-            if (s.ToLower().Equals("n")) break;
-            GC.Collect();
+                Console.Write("\n\nContinue? y/n : ");
+                string? s = Console.ReadLine();
+
+                if (s.ToLower().Equals("n")) break;
+            }
+            catch
+            {
+                Console.WriteLine("\n*** Error ***\n");
+                Console.WriteLine("\n\nException encountered. Try again.\n\n\n");
+            }
+            finally
+            {
+                GC.Collect();
+            }
         }
     }
 }
