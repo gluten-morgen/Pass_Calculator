@@ -1,0 +1,183 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Pass_Calculator</name>
+    </assembly>
+    <members>
+        <member name="T:Pass_Overlap_Calc">
+            <summary>
+            Calculate optimal number of passses and pitch for a given length.
+            </summary>
+        </member>
+        <member name="M:Pass_Overlap_Calc.CalculatePasses">
+            <summary>
+            Calculates the initial number of passes and pitch.
+            </summary>
+        </member>
+        <member name="M:Pass_Overlap_Calc.CalculatePitch(System.Single)">
+            <summary>
+            Calculates the pitch within specified tolerances.
+            </summary>
+            <param name="pitch_calc"></param>
+            <returns>float</returns>
+        </member>
+        <member name="M:Pass_Overlap_Calc.Get_PitchError(System.Single)">
+            <summary>
+            Returns the normalised pitch error from input arg.
+            </summary>
+            <param name="pitch_calc"></param>
+            <returns>float</returns>
+        </member>
+        <member name="M:Pass_Overlap_Calc.Get_LengthError(System.Single)">
+            <summary>
+            Returns the length error using length calculated from input arg.
+            </summary>
+            <param name="pitch_calc"></param>
+            <returns>float</returns>
+        </member>
+        <member name="M:Pass_Overlap_Calc.Get_Pitch">
+            <summary>
+            Returns the calculated pitch using length, pass width, and passes.
+            </summary>
+            <returns>float</returns>
+        </member>
+        <member name="M:Pass_Overlap_Calc.Pitch_InTolerance(System.Single)">
+            <summary>
+            Returns TRUE if the normalised pitch error (delta) is within specified tolerance. FALSE if otherwise.
+            </summary>
+            <param name="delta"></param>
+            <returns>bool</returns>
+        </member>
+        <member name="M:Pass_Overlap_Calc.Length_InTolerance(System.Single)">
+            <summary>
+            Returns TRUE if the length error (delta) is within specified tolerance. FALSE if otherwise
+            </summary>
+            <param name="delta"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Pass_Overlap_Calc.DisplaySolution">
+            <summary>
+            Displays the number of passes, pitch, error, and the number of iterations.
+            </summary>
+        </member>
+        <member name="M:Pass_Overlap_Calc.Calculate">
+            <summary>
+            Calculates the optimum number of passes and pitch given specified tolerances.
+            </summary>
+        </member>
+        <member name="F:Pass_Overlap_Calc.pass">
+            <summary>
+            Number of passes.
+            </summary>
+        </member>
+        <member name="F:Pass_Overlap_Calc.pitch_final">
+            <summary>
+            The optimsed pitch between passes.
+            </summary>
+        </member>
+        <member name="M:Pass_Overlap_Calc.#ctor(System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            Instantiate a <c>Pass_Overlap_Calc</c> object.
+            </summary>
+            <param name="length_"></param>
+            <param name="nom_pitch_"></param>
+            <param name="pass_width_"></param>
+            <param name="pitch_tolerance_min_"></param>
+            <param name="pitch_tolerance_max_"></param>
+            <param name="length_tolerance_min_"></param>
+            <param name="length_tolerance_max_"></param>
+        </member>
+        <member name="T:Inputs">
+            <summary>
+            Generate a menu style input on the console.
+            </summary>
+        </member>
+        <member name="M:Inputs.#ctor">
+            <summary>
+            Create a new <c>Inputs</c> object.
+            </summary>
+        </member>
+        <member name="F:Inputs.len">
+            <summary>
+            len = Length [mm],
+            nm_p = Nominal Pitch [mm],
+            pw = Pass Width [mm],
+            ptmin = Minimum Pitch Tolerance [-1 to 1],
+            ptmax = Maximum Pitch Tolerance [-1 to 1],
+            ltmin = Minimum Length Tolerance [mm],
+            ltmax = Maximum Length Tolerance [mm],
+            </summary>
+        </member>
+        <member name="F:Inputs.nm_p">
+            <summary>
+            len = Length [mm],
+            nm_p = Nominal Pitch [mm],
+            pw = Pass Width [mm],
+            ptmin = Minimum Pitch Tolerance [-1 to 1],
+            ptmax = Maximum Pitch Tolerance [-1 to 1],
+            ltmin = Minimum Length Tolerance [mm],
+            ltmax = Maximum Length Tolerance [mm],
+            </summary>
+        </member>
+        <member name="F:Inputs.pw">
+            <summary>
+            len = Length [mm],
+            nm_p = Nominal Pitch [mm],
+            pw = Pass Width [mm],
+            ptmin = Minimum Pitch Tolerance [-1 to 1],
+            ptmax = Maximum Pitch Tolerance [-1 to 1],
+            ltmin = Minimum Length Tolerance [mm],
+            ltmax = Maximum Length Tolerance [mm],
+            </summary>
+        </member>
+        <member name="F:Inputs.ptmin">
+            <summary>
+            len = Length [mm],
+            nm_p = Nominal Pitch [mm],
+            pw = Pass Width [mm],
+            ptmin = Minimum Pitch Tolerance [-1 to 1],
+            ptmax = Maximum Pitch Tolerance [-1 to 1],
+            ltmin = Minimum Length Tolerance [mm],
+            ltmax = Maximum Length Tolerance [mm],
+            </summary>
+        </member>
+        <member name="F:Inputs.ptmax">
+            <summary>
+            len = Length [mm],
+            nm_p = Nominal Pitch [mm],
+            pw = Pass Width [mm],
+            ptmin = Minimum Pitch Tolerance [-1 to 1],
+            ptmax = Maximum Pitch Tolerance [-1 to 1],
+            ltmin = Minimum Length Tolerance [mm],
+            ltmax = Maximum Length Tolerance [mm],
+            </summary>
+        </member>
+        <member name="F:Inputs.ltmin">
+            <summary>
+            len = Length [mm],
+            nm_p = Nominal Pitch [mm],
+            pw = Pass Width [mm],
+            ptmin = Minimum Pitch Tolerance [-1 to 1],
+            ptmax = Maximum Pitch Tolerance [-1 to 1],
+            ltmin = Minimum Length Tolerance [mm],
+            ltmax = Maximum Length Tolerance [mm],
+            </summary>
+        </member>
+        <member name="F:Inputs.ltmax">
+            <summary>
+            len = Length [mm],
+            nm_p = Nominal Pitch [mm],
+            pw = Pass Width [mm],
+            ptmin = Minimum Pitch Tolerance [-1 to 1],
+            ptmax = Maximum Pitch Tolerance [-1 to 1],
+            ltmin = Minimum Length Tolerance [mm],
+            ltmax = Maximum Length Tolerance [mm],
+            </summary>
+        </member>
+        <member name="M:Inputs.GetInput">
+            <summary>
+            Gets the required inputs from the user in a menu style format.
+            </summary>
+        </member>
+    </members>
+</doc>
