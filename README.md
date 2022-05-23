@@ -2,6 +2,8 @@
 
 **A tool to calculate the number of passes required for cladding or welding on a surface to cover a particular length.**  
 
+
+
 ## A. User Guide
 
 ### 1. Enter Cell Number
@@ -37,6 +39,8 @@ Enter the number corresponding to the choice based on the menu. Then enter the v
 
 ### 3. Done
 After entering the required parameters (described in step 2), the solution will be displayed.
+
+
 
 
 
@@ -103,6 +107,8 @@ Solution converged in 0 iteration(s).
         *************************************
 ```
 
+
+
 ## C. Using the Tolerances to "bias" the Calculations:
 Depending on the application, it may be sometimes desireable to bias the pitch to be "tighter" or more spread apart. This is possible by changing the tolerance values on the pitch. Making the tolerance values more negative will reduce the top limit on the pitch and shorten it, while making the tolerance more positive will have the opposite effect on the pitch.
 
@@ -130,6 +136,7 @@ Solution converged in 3 iteration(s).
 
         *************************************
 ```
+
 
 ### Divergent Solutions
 Note that in the main example in section B, the solution converged in 0 iteration, while in the example with the bised tolerances in section C, the solution converged in 3 iterations. There may be situations for certain lengths or tolerances that the solution diverges, i.e., there is no solution for the specified tolerances. 
