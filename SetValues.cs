@@ -30,7 +30,7 @@ public partial class Pass_Overlap_Calc
     public Pass_Overlap_Calc(float length_, float nom_pitch_, float pass_width_, float pitch_tolerance_min_, float pitch_tolerance_max_, float length_tolerance_min_, float length_tolerance_max_)
     {
         length = length_;
-        nom_pitch = nom_pitch_;
+        nom_pitch = nom_pitch_; // nominal pitch
         pass_width = pass_width_;
         pitch_tolerance_min = pitch_tolerance_min_;
         pitch_tolerance_max = pitch_tolerance_max_;
@@ -103,40 +103,21 @@ public class Inputs
     {
         string? temp;
 
-        Console.Write("\n*******************************************\n");
+        Console.Write("\n\n");
+        Console.Write("\t\t\t****   P A S S    C A L C U L A T O R   ****\n\n");
         Console.Write("This tool calculates the number of passes required for a given length.");
-        Console.Write("\n*******************************************\n");
+        Console.Write("\n\n**********************************************************************\n");
         Console.Write("\n");
 
         Console.Write("Enter Cell Number (1 / 2 / 3): ");
         cell_num = Convert.ToInt16(Console.ReadLine());
 
         Console.Write("\n\n");
+        
 
-
-        // Default values for cells.
-        if (cell_num == 1)
-        {
-            nm_p = 9.525f;
-            pw = 12f;
-            ptmin = -.07f;
-            ptmax = .04f;
-            ltmin = -.5f;
-            ltmax = .5f;
-        }
-        else if (cell_num == 2)
-        {
-            nm_p = 3.2f;
-            pw = 6.5f;
-            ptmin = -.1f;
-            ptmax = .1f;
-            ltmin = -.5f;
-            ltmax = .5f;
-        }
-        else Console.WriteLine("Error: Cell not implemented yet.");
-
-
+        SetDefaults(cell_num);
         Display_defaults(cell_num);
+
         MenuInput();
 
 
@@ -226,6 +207,34 @@ public class Inputs
 
     }
 
+    private void SetDefaults(int cell_num)
+    {
+        // Default values for cells.
+        if (cell_num == 1)
+        {
+            nm_p = 9.525f;
+            pw = 12f;
+            ptmin = -.07f;
+            ptmax = .04f;
+            ltmin = -.5f;
+            ltmax = .5f;
+        }
+        else if (cell_num == 2)
+        {
+            nm_p = 3.2f;
+            pw = 6.5f;
+            ptmin = -.1f;
+            ptmax = .1f;
+            ltmin = -.5f;
+            ltmax = .5f;
+        }
+        else if (cell_num == 3)
+        {
+            Console.WriteLine("Error: Cell not implemented yet.");
+            throw new Exception("Cell not implemented");
+        }
+        else throw new Exception("Invalid Input");
+    }
 
 
     /// <summary>

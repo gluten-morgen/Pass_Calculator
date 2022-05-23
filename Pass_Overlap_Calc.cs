@@ -19,7 +19,6 @@ public partial class Pass_Overlap_Calc
         pass = (float)Math.Round(pass);
         pitch_temp = Get_Pitch();
 
-        iteration_cntr = 1;
         pitch_final = CalculatePitch(pitch_temp);
         pitch_final = (float)Math.Round(pitch_final, 3);
     }
