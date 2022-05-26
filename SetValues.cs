@@ -130,7 +130,7 @@ public class Inputs
                 break;
 
             case 2:
-                Console.WriteLine("Input length and leave blank to use defaults.\n");
+                Console.WriteLine("Input length. For other parameters, leaving them blank will use default values.\n");
 
                 Console.Write("Length: ");
                 len = (float)Convert.ToDouble(Console.ReadLine());
@@ -142,7 +142,7 @@ public class Inputs
                 break;
 
             case 3:
-                Console.WriteLine("Input length and leave blank to use defaults.\n");
+                Console.WriteLine("Input length. For other parameters, leaving them blank will use default values.\n");
 
                 Console.Write("Length [mm]: ");
                 len = (float)Convert.ToDouble(Console.ReadLine());
@@ -153,7 +153,7 @@ public class Inputs
                 if (temp.Equals(string.Empty) == false)
                 {
                     nm_p = (float)Convert.ToDouble(temp);
-                    nm_p = (float)Math.Round(nm_p, 2);
+                    nm_p = (float)Math.Round(nm_p, 3);
                 }
 
                 Console.Write("Pass width [mm]: ");
