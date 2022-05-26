@@ -59,7 +59,7 @@ This tool calculates the number of passes required for a given length.
 Enter Cell Number (1 / 2 / 3):
 ```
 
-Choosing Cell - 1, 
+Choosing Cell 1, 
 
 ```
 Enter Cell Number (1 / 2 / 3): 1
@@ -96,7 +96,7 @@ The length will now need to be input by the user in millimetres:
 ```
 Length: 550
 ```
-On pressing enter, the final solution is displayed, which is the number of passes, the calculated pitch, as well as the error in length. It also shows the number of iterations it took for the calculation to converge.
+On pressing enter, the final solution is displayed; which is the number of passes, the calculated pitch, as well as the error in length. It also shows the number of iterations it took for the calculation to converge.
 ```
         *************************************
 
@@ -112,11 +112,11 @@ Solution converged in 0 iteration(s).
 ## C. Using the Tolerances to "bias" the Calculations:
 Depending on the application, it may be sometimes desireable to bias the pitch to be "tighter" or more spread apart. This is possible by changing the tolerance values on the pitch. Making the tolerance values more negative will reduce the top limit on the pitch and shorten it, while making the tolerance more positive will have the opposite effect on the pitch.
 
-Here is the same calculation shown in the example with 550mm length, but with an exaggerated tolerance bias on 5% minimum limit and 10% maximum limit:
+Here is the same calculation shown in the example with 550mm length, but with an exaggerated tolerance bias of 5% minimum limit and 10% maximum limit:
 ```
 Choice: 3
 
-Input length and leave blank to use defaults.
+Input length. For other parameters, leaving them blank will use default values.
 
 Length [mm]: 550
 Pitch [mm]:
@@ -145,7 +145,7 @@ Here is the same example from section B, but with a tolerance bias of -10% minim
 ```
 Choice: 3
 
-Input length and leave blank to use defaults.
+Input length. For other parameters, leaving them blank will use default values.
 
 Length [mm]: 550
 Pitch [mm]:
