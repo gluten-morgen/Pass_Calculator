@@ -46,9 +46,9 @@ public partial class Pass_Overlap_Calc
 
 
         // Get the error difference in pitch with respect to the tolerance range.
-        if (error_pitch <= pitch_tolerance_min) error_diff = pitch_tolerance_min - error_pitch;
+        if (error_pitch <= pitch_tolerance_min) error_diff = error_pitch - pitch_tolerance_min;
 
-        else if (error_pitch >= pitch_tolerance_max) error_diff = error_pitch - pitch_tolerance_max;
+        else if (error_pitch >= pitch_tolerance_max) error_diff = pitch_tolerance_max - error_pitch;
 
 
 

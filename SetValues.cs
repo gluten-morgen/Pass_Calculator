@@ -42,7 +42,7 @@ public partial class Pass_Overlap_Calc
         pitch_final = 0.0f;
 
         // Hardcoded constant value for maximum no. of iterations.
-        max_iter = 10;
+        max_iter = 20;
     }
 }
 
