@@ -104,7 +104,7 @@ public class Inputs
         string? temp;
 
         Console.Write("\n\n");
-        Console.Write("\t\t\t****   P A S S    C A L C U L A T O R   ****\n\n");
+        Console.Write("\t\t****   P A S S    C A L C U L A T O R   ****\n\n");
         Console.Write("This tool calculates the number of passes required for a given length.");
         Console.Write("\n\n**********************************************************************\n");
         Console.Write("\n");
@@ -222,7 +222,7 @@ public class Inputs
         else if (cell_num == 2)
         {
             nm_p = 3.2f;
-            pw = 6.5f;
+            pw = 5.0f;
             ptmin = -.1f;
             ptmax = .1f;
             ltmin = -.5f;

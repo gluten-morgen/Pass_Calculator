@@ -156,7 +156,7 @@ public partial class Pass_Overlap_Calc
         Console.Write("\n\n");
         Console.Write("\n\t*************************************\t\n\n");
 
-        if (pitch_final > 0.0f)
+        if (pitch_final > 0.0f && pass > 0)
         {
             Console.WriteLine("{0} passes at {1}mm pitch, {2}% pitch error with {3}mm error in length.", pass, pitch_final, error_pitch * 100, error_length);
             Console.WriteLine("\nSolution converged in {0} iteration(s).", iteration_cntr);
