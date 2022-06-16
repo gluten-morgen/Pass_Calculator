@@ -124,6 +124,7 @@ public class Inputs
         switch (choice)
         {
             case 1:
+                Console.WriteLine("Input numeric values only.\n");
                 Console.Write("Length: ");
                 len = (float)Convert.ToDouble(Console.ReadLine());
                 len = (float)Math.Round(len, 2);
@@ -131,6 +132,7 @@ public class Inputs
 
             case 2:
                 Console.WriteLine("Input length. For other parameters, leaving them blank will use default values.\n");
+                Console.WriteLine("Input numeric values only.\n");
 
                 Console.Write("Length: ");
                 len = (float)Convert.ToDouble(Console.ReadLine());
@@ -143,6 +145,7 @@ public class Inputs
 
             case 3:
                 Console.WriteLine("Input length. For other parameters, leaving them blank will use default values.\n");
+                Console.WriteLine("Input numeric values only.\n");
 
                 Console.Write("Length [mm]: ");
                 len = (float)Convert.ToDouble(Console.ReadLine());
@@ -201,7 +204,7 @@ public class Inputs
                 break;
 
             default:
-                Console.WriteLine("Switch case error: invalid option.");
+                Console.WriteLine("Invalid option.");
                 break;
         }
 
@@ -268,7 +271,7 @@ class Program_Main
                 calc.Calculate();
                 calc.DisplaySolution();
 
-                Console.Write("\n\nContinue? y/n : ");
+                Console.Write("\n\nPress Enter to continue or type 'n' to exit : ");
                 string? s = Console.ReadLine();
 
                 if (s.ToLower().Equals("n")) break;
