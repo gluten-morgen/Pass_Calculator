@@ -83,7 +83,7 @@ public class Inputs
     }
     private void Display_defaults(int cell_num)
     {
-        if (cell_num == 1 || cell_num == 2)
+        if (cell_num == 1 || cell_num == 2 || cell_num == 3)
         {
             Console.Write("Default vaules for Cell 1: \n" +
                 "-------------------------\n" +
@@ -95,7 +95,7 @@ public class Inputs
                 "maximum length tolerance = {5}mm\n", nm_p, pw, Math.Round(ptmin * 100), Math.Round(ptmax * 100), ltmin, ltmax);
         }
         else
-            Console.WriteLine("Choice error: Cell has not been implemented yet.");
+            Console.WriteLine("Invalid choice.");
     }
 
 
@@ -230,8 +230,12 @@ public class Inputs
         }
         else if (cell_num == 3)
         {
-            Console.WriteLine("Error: Cell not implemented yet.");
-            throw new Exception("Cell not implemented");
+            nm_p = 3.2f;
+            pw = 2.0f;
+            ptmin = -.1f;
+            ptmax = .1f;
+            ltmin = -.5f;
+            ltmax = .5f;
         }
         else throw new Exception("Invalid Input");
     }
