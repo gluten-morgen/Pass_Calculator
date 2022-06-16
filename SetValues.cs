@@ -238,7 +238,7 @@ public class Inputs
         }
         else if (cell_num == 3)
         {
-            nm_p = 3.2f;
+            nm_p = 2.8f;
             pw = 2.0f;
             ptmin = -.1f;
             ptmax = .1f;
