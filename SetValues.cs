@@ -85,14 +85,19 @@ public class Inputs
     {
         if (cell_num == 1 || cell_num == 2 || cell_num == 3)
         {
-            Console.Write("Default vaules for Cell 1: \n" +
+            Console.Write("Default values for Cell {0}: \n" +
                 "-------------------------\n" +
-                "nominal pitch = {0}mm\n" +
-                "pass width = {1}mm\n" +
-                "minimum pitch tolerance = {2}%\n" +
-                "maximum pitch tolerance = {3}%\n" +
-                "minimum length tolerance = {4}mm\n" +
-                "maximum length tolerance = {5}mm\n", nm_p, pw, Math.Round(ptmin * 100), Math.Round(ptmax * 100), ltmin, ltmax);
+                "nominal pitch = {1}mm\n" +
+                "pass width = {2}mm\n" +
+                "minimum pitch tolerance = {3}%\n" +
+                "maximum pitch tolerance = {4}%\n" +
+                "minimum length tolerance = {5}mm\n" +
+                "maximum length tolerance = {6}mm\n", cell_num, nm_p, pw, Math.Round(ptmin * 100), Math.Round(ptmax * 100), ltmin, ltmax);
+
+            if(cell_num == 2 || cell_num == 3)
+            {
+                Console.WriteLine("\n\nnote: pass width is taken as equivalent to aiming beam width for cell {0}.", cell_num);
+            }
         }
         else
             Console.WriteLine("Invalid choice.");
