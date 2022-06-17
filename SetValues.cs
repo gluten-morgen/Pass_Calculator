@@ -221,7 +221,7 @@ public class Inputs
         if (cell_num == 1)
         {
             nm_p = 9.525f;
-            pw = 12f;
+            pw = 11f;
             ptmin = -.07f;
             ptmax = .04f;
             ltmin = -.5f;
